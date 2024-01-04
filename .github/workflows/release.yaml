@@ -1,0 +1,55 @@
+name: Release package
+
+on:
+  push:
+    tags:
+      - v**
+
+permissions:
+  contents: write
+
+jobs:
+  draft_release:
+    name: Draft release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Draft release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+
+  build:
+    name: Build
+    needs: draft_release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+
+      - name: Packaging
+        run: make package
+
+      - name: Upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload \
+            -R tetsuya28/gcp-shortcuts \
+            ${GITHUB_REF#refs/*/} \
+            gcp-shortcuts.alfredworkflow
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release edit \
+            -R tetsuya28/gcp-shortcuts \
+            ${GITHUB_REF#refs/*/} \
+            --draft=false
