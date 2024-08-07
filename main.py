@@ -7,6 +7,11 @@ import os
 baseURL = "https://console.cloud.google.com/"
 services = [
     {
+        "service": "AlloyDB",
+        "dir": "",
+        "path": "alloydb/clusters"
+    },
+    {
         "service": "Cloud Logging",
         "dir": "cloud_logging",
         "path": "logs/query"
