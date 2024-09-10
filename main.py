@@ -122,6 +122,11 @@ services = [
         "path": "cloudscheduler"
     },
     {
+        "service": "Cloud Tasks",
+        "dir": "cloud_tasks",
+        "path": "cloudtasks"
+    },
+    {
         "service": "Cloud Armor Network Security",
         "dir": "cloud_armor",
         "path": "net-security/securitypolicies/list"
