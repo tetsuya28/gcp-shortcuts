@@ -186,6 +186,11 @@ services = [
         "dir": "artifact_registry",
         "path": "artifacts"
     },
+    {
+        "service": "Vertex AI",
+        "dir": "vertexai",
+        "path": "vertex-ai"
+    },
 ]
 
 args = sys.argv
